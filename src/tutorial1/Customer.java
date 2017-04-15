@@ -202,7 +202,9 @@ public class Customer extends javax.swing.JFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
-        System.out.println("-------------------table click");
+        System.out.println("-------------------table click1  -"+ jTable2.rowAtPoint(evt.getPoint()) );
+        System.out.println("-------------------table click2  -"+ jTable2.columnAtPoint(evt.getPoint()) );
+        System.out.println("-------------------table click3  -"+ jTable2.getValueAt(jTable2.rowAtPoint(evt.getPoint()), 0) );
     }//GEN-LAST:event_jTable2MouseClicked
 
     /**
