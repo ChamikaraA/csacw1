@@ -5,6 +5,7 @@
  */
 package tutorial1;
 
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,11 +14,36 @@ import javax.swing.JOptionPane;
  */
 public class Customer extends javax.swing.JFrame {
 
+  javax.swing.table.DefaultTableModel tableModelJTable2 = new javax.swing.table.DefaultTableModel(); 
+  //Vector tableModelJTable2 = new Vector();
     /**
      * Creates new form Customer
      */
     public Customer() {
+       
+       // tableModelJTable2.setValueAt("1", 1, 1);
+        /*tableModelJTable2.addRow(new Object[]{"1", "hh", "hh"},new String [] {
+                "t1", "t2", "t3"
+            });*/
+        
+         tableModelJTable2.addColumn(new String("t1")); //(new String [] {"t1"});
+         tableModelJTable2.addColumn(new String("t2"));
+         tableModelJTable2.addColumn(new String("t3"));
+        Vector row = new Vector();
+        row.add("1");
+        row.add("def");
+        row.add("ghi");
+        tableModelJTable2.addRow(row);
+        Vector row2 = new Vector();
+        row2.add("2");
+        row2.add("hjh");
+        row2.add("lkh");
+        tableModelJTable2.addRow(row2);
+        
+       
+  
         initComponents();
+
     }
 
     /**
@@ -116,25 +142,7 @@ public class Customer extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "hh", "hh"},
-                {"2", "hh", "hh"},
-                {"3", "kk", "kk"},
-                {"4", "hh", "hh"}
-            },
-            new String [] {
-                "t1", "t2", "t3"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        jTable2.setModel(tableModelJTable2);
         jTable2.setColumnSelectionAllowed(true);
         jTable2.getTableHeader().setReorderingAllowed(false);
         jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -202,9 +210,9 @@ public class Customer extends javax.swing.JFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         // TODO add your handling code here:
-        System.out.println("-------------------table click1  -"+ jTable2.rowAtPoint(evt.getPoint()) );
-        System.out.println("-------------------table click2  -"+ jTable2.columnAtPoint(evt.getPoint()) );
-        System.out.println("-------------------table click3  -"+ jTable2.getValueAt(jTable2.rowAtPoint(evt.getPoint()), 0) );
+        //System.out.println("-------------------table click1  -"+ jTable2.rowAtPoint(evt.getPoint()) );
+       // System.out.println("-------------------table click2  -"+ jTable2.columnAtPoint(evt.getPoint()) );
+        System.out.println("-------------------table click on ID  -"+ jTable2.getValueAt(jTable2.rowAtPoint(evt.getPoint()), 0) );
     }//GEN-LAST:event_jTable2MouseClicked
 
     /**
