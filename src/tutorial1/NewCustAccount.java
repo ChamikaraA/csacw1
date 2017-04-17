@@ -523,7 +523,7 @@ public class NewCustAccount extends javax.swing.JFrame {
 
 		URL urlupdate = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/"+id+"/bankAccounts/"+bankaccountid);
 		HttpURLConnection 
-                        conn = (HttpURLConnection) urlupdate.openConnection();
+                        conn = (HttpURLConnection) urlupdate.openConnection(); 
 		conn.setDoOutput(true);
 		conn.setRequestMethod("PUT");
 		conn.setRequestProperty("Content-Type", "application/json");
