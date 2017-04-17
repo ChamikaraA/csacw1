@@ -56,7 +56,7 @@ public class Customer extends javax.swing.JFrame {
         
          tableModelJTable2.addColumn(new String("id"));
          tableModelJTable2.addColumn(new String("name"));
-         tableModelJTable2.addColumn(new String("birthdate"));
+        // tableModelJTable2.addColumn(new String("birthdate"));
          tableModelJTable2.addColumn(new String("accountNumber"));
         
           try {
@@ -98,7 +98,7 @@ public class Customer extends javax.swing.JFrame {
                             Vector row = new Vector();
                             row.add(json.getInt("id"));
                             row.add(json.getString("name"));
-                            row.add(json.getString("birthDate")); 
+                           // row.add(json.getString("birthDate")); 
                             row.add( jsonArrayaccountnos.get(0).toString() ); // get 0th because no way to display one by one
                             
                             tableModelJTable2.addRow(row);
