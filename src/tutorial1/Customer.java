@@ -5,8 +5,21 @@
  */
 package tutorial1;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+//import org.json.simple.JSONObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import java.lang.Object;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
 
 /**
  *
@@ -19,13 +32,14 @@ public class Customer extends javax.swing.JFrame {
     /**
      * Creates new form Customer
      */
-    public Customer() {
+    public Customer()  {
        
        // tableModelJTable2.setValueAt("1", 1, 1);
         /*tableModelJTable2.addRow(new Object[]{"1", "hh", "hh"},new String [] {
                 "t1", "t2", "t3"
             });*/
         
+       /*  commented to test web service call
          tableModelJTable2.addColumn(new String("t1")); //(new String [] {"t1"});
          tableModelJTable2.addColumn(new String("t2"));
          tableModelJTable2.addColumn(new String("t3"));
@@ -38,7 +52,73 @@ public class Customer extends javax.swing.JFrame {
         row2.add("2");
         row2.add("hjh");
         row2.add("lkh");
-        tableModelJTable2.addRow(row2);
+        tableModelJTable2.addRow(row2);*/
+        
+         tableModelJTable2.addColumn(new String("id"));
+         tableModelJTable2.addColumn(new String("name"));
+         tableModelJTable2.addColumn(new String("birthdate"));
+         tableModelJTable2.addColumn(new String("accountNumber"));
+        
+          try {
+
+		
+              URL url = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code --: "
+					+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+
+		String output;
+		System.out.println("Output from Server********* .... \n");
+                
+                StringBuilder sb = new StringBuilder();
+                
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+                        System.out.println("********* "+output.hashCode());//getBytes("name"));
+                      sb.append(output);  
+                        
+		}
+                    try {
+                        JSONArray jsonArray = new JSONArray(sb.toString());
+                       // JSONObject json = new JSONObject(sb.toString());
+                        
+                        for(int i =0; i<jsonArray.length() ; i++){
+                            JSONObject json = jsonArray.getJSONObject(i);
+                            JSONArray jsonArrayaccountnos = json.getJSONArray("accountNumber");
+                            System.out.println("*********json read --  "+  json.getString("birthDate"));
+
+                            Vector row = new Vector();
+                            row.add(json.getInt("id"));
+                            row.add(json.getString("name"));
+                            row.add(json.getString("birthDate")); 
+                            row.add( jsonArrayaccountnos.get(0).toString() ); // get 0th because no way to display one by one
+                            
+                            tableModelJTable2.addRow(row);
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+		conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+
+	  }
+          
         
        
   
@@ -111,9 +191,9 @@ public class Customer extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
                             .addComponent(jTextField2))))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,11 +242,9 @@ public class Customer extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 305, Short.MAX_VALUE)
+                        .addGap(0, 409, Short.MAX_VALUE)
                         .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
