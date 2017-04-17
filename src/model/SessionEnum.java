@@ -1,0 +1,16 @@
+package model;
+
+
+public enum SessionEnum {
+	USER_NAME,
+	ACCESS_TOKEN,
+	REFRESH_TOKEN,
+	BANK_NAME,
+	BANK_ID,
+	BANK_SHORT_NAME,
+	BANK_CODE,
+	VERIFY_ALLOW,
+	USER_ID
+	
+	
+}
