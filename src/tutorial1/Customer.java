@@ -194,6 +194,7 @@ public class Customer extends javax.swing.JFrame {
 
         jButton4.setBackground(new java.awt.Color(204, 255, 204));
         jButton4.setText("<-");
+        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -293,7 +294,7 @@ public class Customer extends javax.swing.JFrame {
                 new Customer().setVisible(true);
             }
         });
-    }
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
