@@ -105,6 +105,7 @@ public class Customer extends javax.swing.JFrame {
                         }
                     } catch (JSONException ex) {
                         Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error.something went wrong.");
                     }
 
 		conn.disconnect();
@@ -112,11 +113,11 @@ public class Customer extends javax.swing.JFrame {
 	  } catch (MalformedURLException e) {
 
 		e.printStackTrace();
-
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
 	  } catch (IOException e) {
 
 		e.printStackTrace();
-
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
 	  }
           
         
@@ -139,10 +140,7 @@ public class Customer extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -160,59 +158,39 @@ public class Customer extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Page"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Page - Create new or Change existing customer details"));
 
-        jButton1.setText("Select Customer");
+        jButton1.setText("Add new Customer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Name : ");
-
-        jLabel2.setText("Account Number : ");
+        jLabel3.setText("Or select one from below list");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                            .addComponent(jTextField2))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addGap(132, 132, 132)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
         );
-
-        jTextField1.getAccessibleContext().setAccessibleName("Name");
-        jTextField2.getAccessibleContext().setAccessibleName("AccNo");
 
         jButton4.setBackground(new java.awt.Color(204, 255, 204));
         jButton4.setText("<-");
@@ -240,12 +218,12 @@ public class Customer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 409, Short.MAX_VALUE)
+                        .addGap(0, 481, Short.MAX_VALUE)
                         .addComponent(jButton4))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,14 +236,18 @@ public class Customer extends javax.swing.JFrame {
                 .addGap(73, 73, 73))
         );
 
+        jPanel1.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // if customer name and account number does not exist in database, a warning should be given to create new customer. 
         // if name and account number does not match display error message. 
-        NewCustAccount a = new NewCustAccount(); //delete this once all variables are named and assigned appropriately.
-            a.setVisible(true);
+        // NewCustAccount a = new NewCustAccount(); //delete this once all variables are named and assigned appropriately.
+         NewCustAccount a =  new NewCustAccount(0,"");
+         a.setVisible(true);
+         
         /*
         if ((username==CusName) && (AccNo==CusAcc)){
             NewCustAccount a = new NewCustAccount();
@@ -282,8 +264,8 @@ public class Customer extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // move back
-        Menu q = new Menu();
-        q.setVisible(true);
+       // Menu q = new Menu();
+      //  q.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
@@ -291,6 +273,11 @@ public class Customer extends javax.swing.JFrame {
         //System.out.println("-------------------table click1  -"+ jTable2.rowAtPoint(evt.getPoint()) );
        // System.out.println("-------------------table click2  -"+ jTable2.columnAtPoint(evt.getPoint()) );
         System.out.println("-------------------table click on ID  -"+ jTable2.getValueAt(jTable2.rowAtPoint(evt.getPoint()), 0) );
+        
+           NewCustAccount a = new NewCustAccount(1,jTable2.getValueAt(jTable2.rowAtPoint(evt.getPoint()), 0).toString()); //delete this once all variables are named and assigned appropriately.
+            a.setVisible(true);
+        
+        
     }//GEN-LAST:event_jTable2MouseClicked
 
     /**
@@ -311,14 +298,11 @@ public class Customer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

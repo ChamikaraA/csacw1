@@ -5,17 +5,166 @@
  */
 package tutorial1;
 
+import java.time.Clock;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+//import org.json.simple.JSONObject;
+import org.json.JSONObject;
+import org.json.JSONArray;
+import java.lang.Object;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+
 /**
  *
  * @author User
  */
 public class NewCustAccount extends javax.swing.JFrame {
-
+   //public static HttpURLConnection  conn = null;
     /**
      * Creates new form Account
      */
     public NewCustAccount() {
+        
+       System.out.println("initialize");
+        
         initComponents();
+    }
+    
+      public NewCustAccount(int operation,String custid) { // operation if 0 ceate , if 1 update existion
+        
+       System.out.println("initialize with params");
+        
+       if(operation==1){
+           //update existing
+           //get cust id and call web service
+           try {
+
+		//get from customer
+              URL url = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/3");
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code --: "
+					+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+
+		String output;
+		System.out.println("Output from Server********* .... \n");
+                
+                StringBuilder sb = new StringBuilder();
+                
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+                        System.out.println("********* "+output.hashCode());//getBytes("name"));
+                      sb.append(output);  
+                        
+		}
+                    try { 
+                        
+                            JSONObject json = new JSONObject(sb.toString());
+                           
+                            JSONArray jsonArrayaccountnos = json.getJSONArray("accountNumber");
+                            System.out.println("####json read cust--  "+json.getInt("id") + " ,dob- "+  json.getString("birthDate"));
+
+                            
+                            //json.getInt("id");
+                            //json.getString("address"); 
+                            //json.getString("birthDate"); 
+                            //json.getString("email"); 
+                            //json.getString("mobile"); 
+                             //json.getString("name");
+                            //jsonArrayaccountnos.get(0).toString(); // get 0th because no way to display one by one
+                            
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+                    }
+                    
+                  conn.disconnect();
+                  
+                    ////////////////////get from bank acc/////////////////////////////
+                 //URL
+                  url = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/3/bankAccounts");
+		// HttpURLConnection 
+                         conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code --: "
+					+ conn.getResponseCode());
+		}
+
+		//BufferedReader
+                        br = new BufferedReader(new InputStreamReader(
+			(conn.getInputStream())));
+
+		//String output;
+		System.out.println("Output from Server********* .... \n");
+                
+               // StringBuilder 
+                        sb = new StringBuilder();
+                
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+                        System.out.println("********* "+output.hashCode());//getBytes("name"));
+                      sb.append(output);  
+                        
+		}
+                    try {
+                        JSONArray jsonArray = new JSONArray(sb.toString());
+                       // JSONObject json = new JSONObject(sb.toString());
+                        
+                        //for(int i =0; i<jsonArray.length() ; i++){
+                            JSONObject json = jsonArray.getJSONObject(0); //(i);
+                            
+                            System.out.println("*********json read acc--  "+  json.getInt("id")+" , bal -"+json.getDouble("balance"));
+
+                            
+                          //  json.getInt("id");
+                          //  json.getString("accountNumber");
+                          //  json.getDouble("balance");
+                           //  json.getString("card"); 
+                           //  json.getString("sortCode");
+                            
+                            
+                       // }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(Customer.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+                    }
+
+		conn.disconnect(); //common
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	  }
+           
+        initComponents();
+       }
+       else{
+          initComponents(); 
+       }
     }
 
     /**
@@ -60,7 +209,7 @@ public class NewCustAccount extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Account"));
 
@@ -131,7 +280,7 @@ public class NewCustAccount extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -190,7 +339,7 @@ public class NewCustAccount extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
@@ -232,20 +381,151 @@ public class NewCustAccount extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+      System.out.println("create new customer");   
+        
+       try {
+
+		URL url = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/3/bankAccounts/");
+		HttpURLConnection 
+                        conn = (HttpURLConnection) url.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("POST");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		String input = "{\"accountNumber\":\"00910002222\",\"balance\":500.55,\"card\":\"45646654\",\"sortCode\":\"654654654\"}";
+
+		OutputStream os = conn.getOutputStream();
+		os.write(input.getBytes());
+		os.flush();
+                 System.out.println("connection--"+conn.getResponseCode());
+                 System.out.println("httpconnection--"+HttpURLConnection.HTTP_CREATED);
+		if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String output;
+		System.out.println("Output from Server .... \n");
+		while ((output = br.readLine()) != null) {
+			System.out.println(output);
+		}
+            JOptionPane.showMessageDialog (null, "Successfully added new customer.", "Success", JOptionPane.INFORMATION_MESSAGE);
+		conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	 }
+
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        System.out.println("update  customer");   
+        
+       try {
+
+		URL urlupdate = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/3/bankAccounts/3");
+		HttpURLConnection 
+                        conn = (HttpURLConnection) urlupdate.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("PUT");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		String inputupdate = "{\"accountNumber\":\"00910005177\",\"balance\":777.99,\"card\":\"566547777\",\"sortCode\":\"891147777\"}";
+
+		OutputStream osupdate = conn.getOutputStream();
+		osupdate.write(inputupdate.getBytes());
+		osupdate.flush();
+
+                System.out.println("connection--"+conn.getResponseCode());
+                 System.out.println("httpconnection--"+HttpURLConnection.HTTP_CREATED);
+		/* if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}  */
+
+		BufferedReader brupdate = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String outputupdate;
+		System.out.println("Output from Server .... \n");
+		while ((outputupdate = brupdate.readLine()) != null) {
+			System.out.println(outputupdate);
+		}
+            JOptionPane.showMessageDialog (null, "Successfully updated customer.", "Success", JOptionPane.INFORMATION_MESSAGE);
+		conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	 }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+          System.out.println("delete  customer");
+          try {
+                int x=8;
+		URL urldelete = new URL("http://localhost:8080/csa-cw-0.0.1-SNAPSHOT/customers/3/bankAccounts/"+x);
+		HttpURLConnection 
+                        conn = (HttpURLConnection) urldelete.openConnection();
+		conn.setDoOutput(true);
+		conn.setRequestMethod("DELETE");
+		conn.setRequestProperty("Content-Type", "application/json");
+
+		
+
+                System.out.println("connection--"+conn.getResponseCode());
+                 System.out.println("httpconnection--"+HttpURLConnection.HTTP_CREATED);
+		/* if (conn.getResponseCode() != HttpURLConnection.HTTP_CREATED) {
+			throw new RuntimeException("Failed : HTTP error code : "
+				+ conn.getResponseCode());
+		}  */
+
+		BufferedReader brdelete = new BufferedReader(new InputStreamReader(
+				(conn.getInputStream())));
+
+		String outputdelete;
+		System.out.println("Output from Server .... \n");
+		while ((outputdelete = brdelete.readLine()) != null) {
+			System.out.println(outputdelete);
+		}
+            JOptionPane.showMessageDialog (null, "Successfully deleted customer.", "Success", JOptionPane.INFORMATION_MESSAGE);
+		conn.disconnect();
+
+	  } catch (MalformedURLException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	  } catch (IOException e) {
+
+		e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error.something went wrong.");
+	 }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // move back
-        Customer q = new Customer();
-        q.setVisible(true);
+        
+      //  framect.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       // Customer q = new Customer();
+       // q.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
